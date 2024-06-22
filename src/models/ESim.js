@@ -1,49 +1,32 @@
 const {Schema, model} = require('mongoose');
 
 const eSIMSchema = new Schema({
-
-    vendorId: {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-    },
-
-    imsi: {
-        type: String,
-        unique: true,
-    },
-    ki: {
-        type: String,
-    },
+    imsi: { type: String },
+    ki: { type: String },
     operatorSpecificData: {
-        type: Map,
-        of: String,
+        apn: { type: String },
+        settings: {
+            networkSelectionMode: { type: String },
+            preferredNetwork: { type: String }
+        }
     },
     cryptographicInformation: {
-        type: Map,
-        of: String
+        securityKeys: { type: String, },
+        certificates: { type: String, }
     },
     subscriptionInformation: {
-        dataAllowances: {
-            type: Number,
-        },
-        voiceMinuteQuotas: {
-            type: Number,
-        },
+        plan: { type: String, },
+        dataAllowance: { type: String, },
+        voiceMinutes: { type: String, },
+        sms: { type: String,  }
     },
-    iccid: {
-        type: String,
-        unique: true,
-    },
+    iccid: { type: String, },
     networksAndRoamingPreferences: {
-        preferredNetworks: [{
-            type: String
-        }],
-        roamingSettings: {
-            type: Map,
-            of: String
-        },
+        preferredNetworks: { type: [String], },
+        roaming: { type: String, }
     },
-}, { timestamps: true, versionKey: false });
+    vendorId: { type: Schema.Types.ObjectId }
+}, {timestamps: true, versionKey: false});
 
 const ESIM = model('ESIM', eSIMSchema);
 
