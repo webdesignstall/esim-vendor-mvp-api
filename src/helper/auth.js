@@ -6,8 +6,7 @@ exports.createToken = (user)=>{
         '_id': user._id,
         'email': user.email,
         'mobile': user.mobile,
-        'firstName': user.firstName,
-        'lastName': user.lastName,
+        'name': user.name
     };
 
     return jwt.sign(payload, process.env.TOKEN_SECRET, {
