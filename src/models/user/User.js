@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
 		unique: true
 	},
 
-	firstName: {
+	name: {
 		type: String,
 		required: [true, 'First name is required'],
 		minLength: [3, 'First name must be 3 character'],
@@ -20,14 +20,14 @@ const userSchema = mongoose.Schema({
 		trim: true,
 		lowercase: true
 	},
-	lastName: {
+	website: {
 		type: String,
-		required: [true, 'Last name is required'],
-		minLength: [3, 'Last name must be 3 character'],
-		maxLength: [100, 'Last name is too large'],
-		trim: true,
-		lowercase: true,
-
+	},
+	contact: {
+		type: String,
+	},
+	headOffice: {
+		type: String,
 	},
 	password: {
 		type: String,

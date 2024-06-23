@@ -26,7 +26,16 @@ exports.register = async (req, res)=>{
 			})
 		}
 
-		// Email Send
+		const user = await registerService(req.body);
+		await user.save({ validateBeforeSave: false });
+
+		user.password = undefined;
+		res.status(200).json({
+			status: 'success',
+			message: 'Vendor create successfully, send login password to Email',
+		})
+
+		/*// Email Send
 		const SendEmail = await sendEmail(email,"Your login password is: "+ req?.body?.password,"You have been registered as a vendor on Pirate Mobile.")
 
 		if (SendEmail[0].statusCode === 202){
@@ -43,7 +52,7 @@ exports.register = async (req, res)=>{
 				status: 'fail',
 				error: 'Server error occurred'
 			})
-		}
+		}*/
 
 
 		
