@@ -110,3 +110,20 @@ exports.publicCatalogs = async (req, res) => {
         })
     }
 }
+
+exports.singleCatalog = async (req, res) => {
+
+    try {
+        // Create a new eSIM record
+        const catalog = await Catalog.findById(req?.params?.id);
+
+        res.status(201).json(catalog)
+
+    }catch (e) {
+        console.log(e)
+        res.status(500).json({
+            status: 'fail',
+            error: 'Server error occurred'
+        })
+    }
+}
