@@ -25,7 +25,7 @@ const eSIMSchema = new Schema({
         preferredNetworks: { type: [String], },
         roaming: { type: String, }
     },
-    vendorId: { type: Schema.Types.ObjectId }
+    vendorId: { type: Schema.Types.ObjectId, ref: 'User' }
 }, {timestamps: true, versionKey: false});
 
 const ESIM = model('ESIM', eSIMSchema);
