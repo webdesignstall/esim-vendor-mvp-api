@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const {register, login, vendors, profile, profileUpdate, passwordUpdate, verifyOTP, sendOTP, resetPassword, address,
-    getSingleVendor, vendorUpdate
+    getSingleVendor, vendorUpdate, vendorDestroy
 } = require('../controllers/userController');
 const {AuthVerifyMiddleware, isSuperAdmin} = require("../middleware/AuthVerifyMiddleware");
 
@@ -11,6 +11,7 @@ router.post('/register', AuthVerifyMiddleware, isSuperAdmin, register);
 router.get('/vendors', AuthVerifyMiddleware, isSuperAdmin, vendors);
 router.get('/vendor/:id', AuthVerifyMiddleware, isSuperAdmin, getSingleVendor);
 router.put('/vendor/:id', AuthVerifyMiddleware, isSuperAdmin, vendorUpdate);
+router.delete('/vendor/:id', AuthVerifyMiddleware, isSuperAdmin, vendorDestroy);
 
 router.post('/login', login);
 router.get('/users/:email/:otp', verifyOTP);
