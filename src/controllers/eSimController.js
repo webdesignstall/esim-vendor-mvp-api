@@ -1,4 +1,5 @@
 const ESIM = require("../models/ESim");
+const Catalog = require("../models/Catalog");
 
 
 exports.create = async (req, res) => {
@@ -47,4 +48,65 @@ exports.getAllVendorESims = async (req, res) => {
     });
 
     return res.status(200).json(eSims)
+}
+
+
+// eSim Catalog
+
+exports.catalogCreate = async (req, res) => {
+
+    req.body.vendorId = req.auth?._id;
+
+    try {
+        // Create a new eSIM record
+        const catalog = new Catalog(req.body);
+
+        await catalog.save()
+
+        res.status(201).json({message: 'Catalog create successfully'})
+
+    }catch (e) {
+        console.log(e)
+        res.status(500).json({
+            status: 'fail',
+            error: 'Server error occurred'
+        })
+    }
+}
+
+exports.catalogs = async (req, res) => {
+
+    try {
+        // Create a new eSIM record
+        const catalogs = await Catalog.find({vendorId:  req.auth?._id });
+
+        res.status(201).json(catalogs)
+
+    }catch (e) {
+        console.log(e)
+        res.status(500).json({
+            status: 'fail',
+            error: 'Server error occurred'
+        })
+    }
+}
+
+exports.publicCatalogs = async (req, res) => {
+
+    try {
+        // Create a new eSIM record
+        const catalogs = await Catalog.find().populate({
+            select: '-password',
+            path: 'vendorId'
+        });
+
+        res.status(201).json(catalogs)
+
+    }catch (e) {
+        console.log(e)
+        res.status(500).json({
+            status: 'fail',
+            error: 'Server error occurred'
+        })
+    }
 }
